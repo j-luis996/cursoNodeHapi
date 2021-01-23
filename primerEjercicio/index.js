@@ -6,6 +6,7 @@ const path = require('path')
 const vision = require('@hapi/vision')
 
 const config = require('./config')
+const routes = require('./routes')
 const handlebars = require('handlebars')
 
 const server = Hapi.server({
@@ -32,47 +33,7 @@ const init = async () => {
                   layout: true,
                   layoutPath: 'views'
             })
-            server.route({
-                  method: 'GET',
-                  path: '/home',
-                  handler: (req, h) => {
-                        return h.view('index',{
-                              title: 'home'
-                        })
-                  }
-            })
-      
-            server.route({
-                  method: 'GET',
-                  path: '/register',
-                  handler: (req, h) => {
-                        return h.view('register',{
-                              title: 'registro'
-                        })
-                  }
-            })
-
-            server.route({
-                  method: 'GET',
-                  path: '/{param*}',
-                  handler: {
-                        directory: {
-                              path: '.',
-                              index: ['index.html']
-                        }
-                  }
-            })
-
-            server.route({
-                  method: 'POST',
-                  path: '/create-user',
-                  handler: (req, h) => {
-                        console.log(req.payload)
-                        return 'Usuario creado'
-                  }
-            })
-
-
+            server.route(routes)
             await server.start()
       }catch(err){
             console.error(err)
