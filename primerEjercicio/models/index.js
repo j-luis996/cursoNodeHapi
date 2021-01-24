@@ -1,11 +1,12 @@
 'use strict'
 
+const config = require('../config')
 const firebase = require('firebase-admin')
-const serviceAccount = require('../config/primerproyecto-3f20c-firebase-adminsdk-7ow8n-ae932f9819.json')
+const serviceAccount = require(config.llave)
 
 firebase.initializeApp({
       credential: firebase.credential.cert(serviceAccount),
-      databaseURL: 'https://primerproyecto-3f20c-default-rtdb.firebaseio.com/'
+      databaseURL: config.databaseURL,
 })
 
 const db = firebase.database()
