@@ -8,6 +8,7 @@ class Users {
            this.ref = this.db.ref('/')
            this.collection = this.ref.child('users')
       }
+
       async create(data) {
             // console.log(data)
             // Destructuro el objeto con el payload enviado. Ya que Hapi lo decora con un prototipo null que no es compatible con Firebase
@@ -19,6 +20,7 @@ class Users {
             const newUser = this.collection.push(user)
             return newUser.key
       }
+
       async validateUser(infoUser){
             const data = {
                   ...infoUser
@@ -34,10 +36,12 @@ class Users {
             }
             return false
       }
+
       static async encrypt(password){
             const saltRound = 10
             const hashedPassword = await bcrypt.hash(password,saltRound)
             return hashedPassword
       }
 }
+
 module.exports = Users

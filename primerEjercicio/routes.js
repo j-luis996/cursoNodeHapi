@@ -30,6 +30,7 @@ module.exports = [
             method: 'POST',
             options: {
                   validate: {
+                        //estas lineas validan la informacion del nombre, email y la contraseña
                         payload: joi.object({
                               name: joi.string().required().min(3),
                               email: joi.string().email().required(),
@@ -45,6 +46,7 @@ module.exports = [
             method: 'POST',
             options: {
                   validate: {
+                        //estas lineas validan la informacion del email y la contraseña
                         payload:joi.object({
                               email: joi.string().email().required(),
                               password: joi.string().required().min(8),

@@ -1,5 +1,6 @@
 'use strict'
 
+//esta funcion lo primero que pregunta es si existe la cookie de secion
 function register(req, h){
       if(req.state.user){
             return h.redirect('/')
@@ -10,6 +11,7 @@ function register(req, h){
       })
 }
 
+//esta funcion lo primero que pregunta es si existe la cookie de secion
 function login(req, h){
       if(req.state.user){
             return h.redirect('/')
@@ -19,6 +21,8 @@ function login(req, h){
             user: req.state.user
       })
 }
+
+//el objetivo de la funciones notFound y fileNotFound es capturar rutas no permitidas o que no existen 
 function notFound(req,h){
       return h.view('404',{},{layout: 'error-layout'}).code(404)
 }

@@ -34,7 +34,7 @@ async function validateUser(req,h){
             console.error(error)
             return h.view('login',{
                   title: 'Login',
-                  error: 'problema validando el usuario'
+                  error: 'Problemas validando el usuario'
             })
       }
       return h.redirect('/').state('user',{
@@ -55,7 +55,7 @@ function failValidation(req,h,err) {
       }
       return h.view(templates[req.path], {
             title: 'Error de validacion',
-            error: 'porfavor complete los campos requeridos'
+            error: 'Porfavor complete los campos requeridos'
       }).code(400).takeover()
 }
 

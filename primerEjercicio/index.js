@@ -10,6 +10,7 @@ const config = require('./config')
 const routes = require('./routes')
 const handlebars = require('handlebars')
 
+//esto inicializa el servidor
 const server = Hapi.server({
       port: config.port,
       host: config.host,
@@ -22,9 +23,11 @@ const server = Hapi.server({
 
 const init = async () => {
       try{
+            //despues de agregar un plugin a happi hay que registrarlo así:
             await server.register(inert)
             await server.register(vision)
 
+            //esto sirve para crear una cookie para validar una secion
             server.state('user',{
                   ttl: 1000*60*60*24, //milisegundos, esta operacionda 1 dia
                   isSecure: process.env.NODE_ENV === 'prod',
@@ -32,6 +35,7 @@ const init = async () => {
                   path: '/',
             })
 
+            //esto define las ubucaiones de las vistas, en nuestro caso vistas y layout estan juntos
             server.views({
                   engines: {
                         hbs: handlebars
@@ -42,9 +46,10 @@ const init = async () => {
                   layoutPath: 'views'
             })
 
+            //esto es para caputrar errores 404
             server.ext('onPreResponse', site.fileNotFound)
-            server.route(routes)
 
+            server.route(routes)
             await server.start()
       }catch(err){
             console.error(err)
