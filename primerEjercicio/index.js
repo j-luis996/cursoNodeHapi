@@ -24,6 +24,13 @@ const init = async () => {
             await server.register(inert)
             await server.register(vision)
 
+            server.state('user',{
+                  ttl: 1000*60*60*24, //milisegundos, esta operacionda 1 dia
+                  isSecure: process.env.NODE_ENV === 'prod',
+                  encoding: 'base64json',
+                  path: '/',
+            })
+
             server.views({
                   engines: {
                         hbs: handlebars
