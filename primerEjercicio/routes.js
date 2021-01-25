@@ -30,11 +30,12 @@ module.exports = [
             method: 'POST',
             options: {
                   validate: {
-                        payload:joi.object({
+                        payload: joi.object({
                               name: joi.string().required().min(3),
                               email: joi.string().email().required(),
                               password: joi.string().required().min(8),
-                        })
+                        }),
+                        
                   }
             },
             handler: user.createUser
@@ -47,7 +48,8 @@ module.exports = [
                         payload:joi.object({
                               email: joi.string().email().required(),
                               password: joi.string().required().min(8),
-                        })
+                        }),
+                        failAction: user.failValidation,
                   }
             },
             handler: user.validateUser

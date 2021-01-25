@@ -48,6 +48,12 @@ const init = async () => {
       }
       console.log(`Servidor lanzado en: ${server.info.uri}`)
 }
-
-
+//capura promesas no capturadas
+process.on('unhandledRejection',error =>{
+      console.error('UnhandledRejection',error)
+})
+//captura excepciones no capturadas
+process.on('uncaughtException',error =>{
+      console.error('UncaughtException',error)
+})
 init()

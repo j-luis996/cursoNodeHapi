@@ -1,5 +1,6 @@
 'use strict'
 
+const boom = require('@hapi/boom')
 const users = require('../models/index').users
 
 async function createUser(req, h) {
@@ -35,8 +36,13 @@ function logout(req,h){
       return h.redirect('/login').unstate('user')
 }
 
+function failValidation(req,h,err) {
+      return boom.badRequest('fallo la validacion', req.payload)
+}
+
 module.exports = {
       createUser,
       validateUser,
       logout,
+      failValidation,
 }
