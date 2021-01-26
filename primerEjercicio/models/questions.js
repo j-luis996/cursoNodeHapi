@@ -8,6 +8,7 @@ class Questions {
       }
 
       async create(quess, user){
+            //si no se hace la deconstruccion da error :/
             const data = {
                   ...quess
             }
@@ -16,6 +17,18 @@ class Questions {
             question.set(data)
 
             return question.key
+      }
+
+      async getLast(amount){
+            const query = await this.collection.limitToLast(amount).once('value')
+            const data = query.val()
+            return data
+      }
+
+      async getOne(id){
+            const query = await this.collection.child(id).once('value')
+            const data = query.val()
+            return data
       }
 }
 

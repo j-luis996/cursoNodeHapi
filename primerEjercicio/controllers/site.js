@@ -1,5 +1,8 @@
 'use strict'
 
+const questions = require('../models/index').questions
+const config = require('../config')
+
 //esta funcion lo primero que pregunta es si existe la cookie de secion
 function register(req, h){
       if(req.state.user){
@@ -22,6 +25,24 @@ function login(req, h){
       })
 }
 
+async function viewQuestion(req, h) {
+      let data
+      try {
+            data = await questions.getOne(req.params.id)
+            if(!data){
+                  return notFound(req, h)
+            }
+      } catch (error) {
+            console.error(error)
+      }
+      return h.view('question',{
+            title: 'Detalles de la pregunta',
+            user: req.state.user,
+            question: data,
+            key: req.params.id,
+      })
+}
+
 //el objetivo de la funciones notFound y fileNotFound es capturar rutas no permitidas o que no existen 
 function notFound(req,h){
       return h.view('404',{},{layout: 'error-layout'}).code(404)
@@ -35,10 +56,17 @@ function fileNotFound(req,h){
       return h.continue
 }
 
-function home(req, h){
+async function home(req, h){
+      let data
+      try {
+            data = await questions.getLast(config.numPreguntas)
+      } catch (error) {
+            console.log(error)
+      }
       return h.view('index',{
             title: 'home',
-            user: req.state.user
+            user: req.state.user,
+            questions: data,
       })
 }
 
@@ -61,4 +89,5 @@ module.exports={
       notFound,
       fileNotFound,
       ask,
+      viewQuestion,
 }
