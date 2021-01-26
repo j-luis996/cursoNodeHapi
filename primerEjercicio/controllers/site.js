@@ -42,10 +42,23 @@ function home(req, h){
       })
 }
 
+//esta funcion redireige a la pagina para crear una preguta, si no estas logueado te dirige a login
+function ask(req,h){
+      if(!req.state.user){
+            return h.redirect('/login')
+      }
+
+      return h.view('ask', {
+            title: 'Crear pregunta',
+            user: req.state.user
+      })
+}
+
 module.exports={
       register,
       home,
       login,
       notFound,
       fileNotFound,
+      ask,
 }

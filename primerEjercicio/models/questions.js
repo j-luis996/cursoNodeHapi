@@ -3,11 +3,14 @@
 class Questions {
       constructor(db){
             this.db = db
-            this.ref = this.ref('/')
+            this.ref = this.db.ref('/')
             this.collection = this.ref.child('questions')
       }
 
-      async create(data, user){
+      async create(quess, user){
+            const data = {
+                  ...quess
+            }
             data.owner = user
             const question =this.collection.push()
             question.set(data)
