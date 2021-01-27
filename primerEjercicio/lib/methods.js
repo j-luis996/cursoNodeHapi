@@ -7,7 +7,7 @@ async function setAnswerRight(questionId, answerId, user){
       try {
             result = await questions.setAnswerRight(questionId, answerId, user)
       } catch (error) {
-            console.error(error)
+            console.error('[ErrorMetodos]',error)
             return false
       }
       return result
