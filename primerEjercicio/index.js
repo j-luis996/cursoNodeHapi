@@ -5,6 +5,7 @@ const inert = require('@hapi/inert')
 const path = require('path')
 const vision = require('@hapi/vision')
 const site = require('./controllers/site')
+const methods =  require('./lib/methods')
 
 const config = require('./config')
 const routes = require('./routes')
@@ -27,6 +28,8 @@ const init = async () => {
             //despues de agregar un plugin a happi hay que registrarlo así:
             await server.register(inert)
             await server.register(vision)
+
+            server.method('setAnswerRight',methods.setAnswerRight)
 
             //esto sirve para crear una cookie para validar una secion
             server.state('user',{
