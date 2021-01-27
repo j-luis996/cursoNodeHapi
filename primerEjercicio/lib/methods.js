@@ -13,6 +13,19 @@ async function setAnswerRight(questionId, answerId, user){
       return result
 } 
 
+//este metodo define el chache del lado del server
+async function  getLast(amount) {
+      let data
+      try {
+            data = await questions.getLast(amount)
+      } catch (error) {
+            console.error(error)
+      }
+      console.log('Actualice el cache')
+      return data
+}
+
 module.exports = {
       setAnswerRight,
+      getLast,
 }

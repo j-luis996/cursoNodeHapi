@@ -3,13 +3,20 @@
 const joi = require('joi')
 const site = require('./controllers/site')
 const user = require('./controllers/user')
+const config = require('./config')
 const question = require('./controllers/question')
-
+//la propiedad options genera cache del lado del browswer
 module.exports = [
       {
             method: 'GET',
             path: '/',
-            handler: site.home
+            options: {
+                  cache: {
+                        expiresIn: config.cacheBrowser,
+                        privacy: 'private'
+                  }
+            },
+            handler: site.home,
       },
       {
             method: 'GET',

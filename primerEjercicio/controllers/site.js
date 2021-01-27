@@ -57,12 +57,9 @@ function fileNotFound(req,h){
 }
 
 async function home(req, h){
-      let data
-      try {
-            data = await questions.getLast(config.numPreguntas)
-      } catch (error) {
-            console.log(error)
-      }
+      //anteriormente aqui se tenia el codigo para obtener las ultimas preguntas, se movio a methods
+      //para manejar cache del lado del server
+      const data = await req.server.methods.getLast(config.numPreguntas)
       return h.view('index',{
             title: 'home',
             user: req.state.user,

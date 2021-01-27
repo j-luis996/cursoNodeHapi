@@ -30,6 +30,17 @@ const init = async () => {
             await server.register(vision)
 
             server.method('setAnswerRight',methods.setAnswerRight)
+            /**
+             * la propiedad cache define las caracteristicas del cache del aldo del servidor
+             * expiresIn, indica el tiempo que dura el cache
+             * generateTimeout: si el metodo falla despues del tiempo indicado se ejecuta por fuera del cache
+             */
+            server.method('getLast',methods.getLast,{
+                  cache: {
+                        expiresIn: config.cacheServer,
+                        generateTimeout: config.generateTimeout,
+                  }
+            })
 
             //esto sirve para crear una cookie para validar una secion
             server.state('user',{
