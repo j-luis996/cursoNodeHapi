@@ -8,14 +8,8 @@ const site = require('./controllers/site')
 
 const config = require('./config')
 const routes = require('./routes')
-const handlebars = require('handlebars')
+const handlebars = require('./lib/helpers')
 
-
-//esta funcion da el numero de respuestas para cada pregunta
-handlebars.registerHelper('answerNumber', (answers) => {
-      const keys = Object.keys(answers)
-      return keys.length
-})
 
 //esto inicializa el servidor
 const server = Hapi.server({
