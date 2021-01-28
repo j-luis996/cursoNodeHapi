@@ -7,12 +7,16 @@ class Questions {
             this.collection = this.ref.child('questions')
       }
 
-      async create(quess, user){
+      async create(info, user,fileName){
             //si no se hace la deconstruccion da error :/
             const data = {
-                  ...quess
+                  description: info.description,
+                  title: info.title,
+                  owner: user,
             }
-            data.owner = user
+            if(fileName){
+                  data.fileName = fileName
+            }
             const question =this.collection.push()
             question.set(data)
 

@@ -19,6 +19,7 @@
     "firebase-admin": "^9.4.2",
     "handlebars": "^4.7.6",
     "joi": "^17.3.0",
-    "standard": "^16.0.3"
+    "standard": "^16.0.3",
+    "uuid": "^8.3.2"
   }
 }

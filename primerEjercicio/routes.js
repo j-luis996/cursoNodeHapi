@@ -54,7 +54,7 @@ module.exports = [
                               email: joi.string().email().required(),
                               password: joi.string().required().min(8),
                         }),
-                        
+                        failAction: user.failValidation,
                   }
             },
             handler: user.createUser
@@ -78,11 +78,16 @@ module.exports = [
             path: '/create-question',
             method: 'POST',
             options: {
+                  payload: {
+                        parse: true,
+                        multipart: true,
+                      },
                   validate: {
                         //
                         payload:joi.object({
                               title: joi.string().required(),
                               description: joi.string().required(),
+                              image: joi.any().optional(),
                         }),
                         failAction: user.failValidation,
                   }
