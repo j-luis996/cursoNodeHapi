@@ -2,6 +2,7 @@
 
 const Hapi = require('@hapi/hapi')
 const inert = require('@hapi/inert')
+const good =  require('@hapi/good')
 const path = require('path')
 const vision = require('@hapi/vision')
 const site = require('./controllers/site')
@@ -28,6 +29,21 @@ const init = async () => {
             //despues de agregar un plugin a happi hay que registrarlo así:
             await server.register(inert)
             await server.register(vision)
+            //
+            await server.register({
+                  plugin: good,
+                  options: {
+                        reporters:{
+                              console: [
+                                    {
+                                    module: "@hapi/good-console"
+                              },
+                              'stdout'
+                        
+                        ]
+                        },
+                  },
+            })
 
             server.method('setAnswerRight',methods.setAnswerRight)
             /**
@@ -70,14 +86,16 @@ const init = async () => {
             console.error(err)
             process.exit(1)
       }
-      console.log(`Servidor lanzado en: ${server.info.uri}`)
+      server.log(`Servidor lanzado en: ${server.info.uri}`)
 }
 //capura promesas no capturadas
 process.on('unhandledRejection',error =>{
-      console.error('UnhandledRejection',error)
+      // console.error('UnhandledRejection',error)
+      server.log('unhandledRejection',error)
 })
 //captura excepciones no capturadas
 process.on('uncaughtException',error =>{
-      console.error('UncaughtException',error)
+      // console.error('UncaughtException',error)
+      server.log('UncaughtException',error)
 })
 init()
