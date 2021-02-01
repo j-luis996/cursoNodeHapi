@@ -29,7 +29,7 @@ const init = async () => {
             //despues de agregar un plugin a happi hay que registrarlo así:
             await server.register(inert)
             await server.register(vision)
-            //
+            //registro de good
             await server.register({
                   plugin: good,
                   options: {
@@ -45,6 +45,13 @@ const init = async () => {
                   },
             })
 
+            //
+            await server.register({
+                  plugin: require('./lib/api'),
+                  options: {
+                        prefix: "api",
+                  }
+            })
             server.method('setAnswerRight',methods.setAnswerRight)
             /**
              * la propiedad cache define las caracteristicas del cache del aldo del servidor
